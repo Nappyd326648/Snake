@@ -1,4 +1,4 @@
-package com.clara;
+package com.eugeneStewart;
 
 import java.util.Timer;
 
@@ -7,16 +7,16 @@ import javax.swing.*;
 
 public class SnakeGame {
 
-	public final static int xPixelMaxDimension = 501;  //Pixels in window. 501 to have 50-pixel squares plus 1 to draw a border on last square
-	public final static int yPixelMaxDimension = 501;
+	public final static int xPixelMaxDimension = 961;  //Pixels in window. 501 to have 50-pixel squares plus 1 to draw a border on last square
+	public final static int yPixelMaxDimension = 721;
 
 	public static int xSquares ;
 	public static int ySquares ;
 
-	public final static int squareSize = 50;
+	public final static int squareSize = 15;
 
 	protected static Snake snake ;
-
+	protected static CSnake cSnake;
 	protected static Kibble kibble;
 
 	protected static Score score;
@@ -53,7 +53,7 @@ public class SnakeGame {
 		snakeFrame.setVisible(true);
 		snakeFrame.setResizable(false);
 
-		snakePanel = new DrawSnakeGamePanel(snake, kibble, score);
+		snakePanel = new DrawSnakeGamePanel(snake, kibble, score,cSnake);
 		snakePanel.setFocusable(true);
 		snakePanel.requestFocusInWindow(); //required to give this component the focus so it can generate KeyEvents
 
@@ -71,6 +71,7 @@ public class SnakeGame {
 		ySquares = yPixelMaxDimension / squareSize;
 
 		snake = new Snake(xSquares, ySquares, squareSize);
+		cSnake= new CSnake(xSquares,ySquares,squareSize);
 		kibble = new Kibble(snake);
 		score = new Score();
 
@@ -79,7 +80,7 @@ public class SnakeGame {
 
 	protected static void newGame() {
 		Timer timer = new Timer();
-		GameClock clockTick = new GameClock(snake, kibble, score, snakePanel);
+		GameClock clockTick = new GameClock(snake,cSnake, kibble, score, snakePanel);
 		timer.scheduleAtFixedRate(clockTick, 0 , clockInterval);
 	}
 

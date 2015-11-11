@@ -1,4 +1,4 @@
-package com.clara;
+package com.eugeneStewart;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -6,11 +6,11 @@ import java.awt.event.KeyListener;
 public class GameControls implements KeyListener{
 	
 	Snake snake;
-	
+
 	GameControls(Snake s){
 		this.snake = s;
 	}
-	
+
 	public void keyPressed(KeyEvent ev) {
 		//keyPressed events are for catching events like function keys, enter, arrow keys
 		//We want to listen for arrow keys to move snake

@@ -1,4 +1,4 @@
-package com.clara;
+package com.eugeneStewart;
 
 import java.awt.*;
 import java.util.LinkedList;
@@ -17,11 +17,13 @@ public class DrawSnakeGamePanel extends JPanel {
 	private Snake snake;
 	private Kibble kibble;
 	private Score score;
+	private CSnake cSnake;
 	
-	DrawSnakeGamePanel(Snake s, Kibble k, Score sc){
+	DrawSnakeGamePanel(Snake s, Kibble k, Score sc,CSnake cs){
 		this.snake = s;
 		this.kibble = k;
 		this.score = sc;
+		this.cSnake=cs;
 	}
 	
 	public Dimension getPreferredSize() {
@@ -65,7 +67,7 @@ public class DrawSnakeGamePanel extends JPanel {
 
 	private void displayGameWon(Graphics g) {
 		// TODO Replace this with something really special!
-		g.clearRect(100,100,350,350);
+		g.clearRect(100, 100, 350, 350);
 		g.drawString("YOU WON SNAKE!!!", 150, 150);
 		
 	}
@@ -91,7 +93,8 @@ public class DrawSnakeGamePanel extends JPanel {
 	private void displayGame(Graphics g) {
 		displayGameGrid(g);
 		displaySnake(g);
-		displayKibble(g);	
+		displayKibble(g);
+		displayCSnake(g);
 	}
 
 	private void displayGameGrid(Graphics g) {
@@ -117,7 +120,7 @@ public class DrawSnakeGamePanel extends JPanel {
 	private void displayKibble(Graphics g) {
 
 		//Draw the kibble in green
-		g.setColor(Color.GREEN);
+		g.setColor(Color.RED);
 
 		int x = kibble.getKibbleX() * SnakeGame.squareSize;
 		int y = kibble.getKibbleY() * SnakeGame.squareSize;
@@ -137,6 +140,22 @@ public class DrawSnakeGamePanel extends JPanel {
 		
 		//Draw rest of snake in black
 		g.setColor(Color.BLACK);
+		for (Point p : coordinates) {
+			g.fillRect((int)p.getX(), (int)p.getY(), SnakeGame.squareSize, SnakeGame.squareSize);
+		}
+
+	}
+	private void displayCSnake(Graphics g) {
+
+		LinkedList<Point> coordinates = cSnake.segmentsToDraw();
+
+		//Draw head in grey
+		g.setColor(Color.blue);
+		Point head = coordinates.pop();
+		g.fillRect((int)head.getX(), (int)head.getY(), SnakeGame.squareSize, SnakeGame.squareSize);
+
+		//Draw rest of snake in black
+		g.setColor(Color.cyan);
 		for (Point p : coordinates) {
 			g.fillRect((int)p.getX(), (int)p.getY(), SnakeGame.squareSize, SnakeGame.squareSize);
 		}

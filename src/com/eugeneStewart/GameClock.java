@@ -1,4 +1,4 @@
-package com.clara;
+package com.eugeneStewart;
 
 import java.util.TimerTask;
 
@@ -7,10 +7,12 @@ public class GameClock extends TimerTask {
 	Snake snake;
 	Kibble kibble;
 	Score score;
+	CSnake cSnake;
 	DrawSnakeGamePanel gamePanel;
 		
-	public GameClock(Snake snake, Kibble kibble, Score score, DrawSnakeGamePanel gamePanel){
+	public GameClock(Snake snake, CSnake cSnake, Kibble kibble, Score score, DrawSnakeGamePanel gamePanel){
 		this.snake = snake;
+		this.cSnake= cSnake;
 		this.kibble = kibble;
 		this.score = score;
 		this.gamePanel = gamePanel;
@@ -32,6 +34,11 @@ public class GameClock extends TimerTask {
 				snake.moveSnake();
 				if (snake.didEatKibble(kibble) == true) {		
 					//tell kibble to update
+					kibble.moveKibble(snake);
+					Score.increaseScore();
+				}
+				cSnake.moveSnake(kibble);
+				if (cSnake.didEatKibble(kibble)==true){
 					kibble.moveKibble(snake);
 					Score.increaseScore();
 				}
