@@ -35,6 +35,9 @@ public class CSnake {
     private int snakeHeadX, snakeHeadY; //store coordinates of head - first segment
     int sx = 64;
     int sy = 48;
+    int xx=0;
+    int yy=0;
+
 
     public CSnake(int maxX, int maxY, int squareSize){
         this.maxX = maxX;
@@ -94,50 +97,46 @@ public class CSnake {
 
     }
 
-    public void snakeUp(){
-        if (currentHeading == DIRECTION_UP || currentHeading == DIRECTION_DOWN) { return; }
-        currentHeading = DIRECTION_UP;
-    }
-    public void snakeDown(){
-        if (currentHeading == DIRECTION_DOWN || currentHeading == DIRECTION_UP) { return; }
-        currentHeading = DIRECTION_DOWN;
-    }
-    public void snakeLeft(){
-        if (currentHeading == DIRECTION_LEFT || currentHeading == DIRECTION_RIGHT) { return; }
-        currentHeading = DIRECTION_LEFT;
-    }
-    public void snakeRight(){
-        if (currentHeading == DIRECTION_RIGHT || currentHeading == DIRECTION_LEFT) { return; }
-        currentHeading = DIRECTION_RIGHT;
+
+
+    public void    eatKibble(){
+    //record how much snake needs to grow after eating food
+    justAteMustGrowThisMuch += growthIncrement;
     }
 
-//	public void	eatKibble(){
-//		//record how much snake needs to grow after eating food
-//		justAteMustGrowThisMuch += growthIncrement;
-//	}
-
-    protected void moveSnake(Kibble kibble){
+    protected void moveSnake(){
         //Called every clock tick
 
         //Must check that the direction snake is being sent in is not contrary to current heading
         //So if current heading is down, and snake is being sent up, then should ignore.
         //Without this code, if the snake is heading up, and the user presses left then down quickly, the snake will back into itself.
-        int xx =kibble.getKibbleX();
-        int yy = kibble.getKibbleY();
+        //int xx =kibble.getKibbleX();
+        //int yy = kibble.getKibbleY();
 
-        int c[]=new int[63];
-        int cy[]= new int[47];
-        for(int i =0;i <63;i++ ){
-            if (snakeHeadX==c[i]){currentHeading = DIRECTION_UP;}}
-        for (int i =0;i <47;i++){
-            if(snakeHeadX==0&&snakeHeadY==cy[i]){currentHeading=DIRECTION_RIGHT;}}
+        int c[]=new int[maxX-1];
+        int cy[]= new int[maxY-1];
+        for(int i =0;i <c.length;i++ ){c[i]=i;}
+        for(int i =0;i <cy.length;i++ ){cy[i]=i;}
 
-        if (snakeHeadX==maxX-1&&snakeHeadY==0){currentHeading=DIRECTION_DOWN;}
-        if (snakeHeadX==63&&snakeHeadY==47){currentHeading=DIRECTION_LEFT;}
+//        for(int i =0;i <c.length;i++ ){
+//            if (snakeHeadX==c[i]&& snakeHeadY==0||snakeHeadX==c[i]&& snakeHeadY==maxY-1){System.out.println(snakeHeadX==c[i]&& snakeHeadY==0||snakeHeadX==c[i]&& snakeHeadY==maxY-1);
+//                if (i>=maxX/2)System.out.println( i>maxX/2);{currentHeading=DIRECTION_RIGHT;System.out.println("1r");}if(i<maxX/2){currentHeading=DIRECTION_LEFT;System.out.println("1L");}
+//                if(snakeHeadX==0&& snakeHeadY==0){
+//                    if (lastHeading==DIRECTION_UP){currentHeading=DIRECTION_RIGHT;System.out.println("2r");}else{currentHeading=DIRECTION_DOWN;System.out.println("2d");}}
+        //               if(snakeHeadX==0&&snakeHeadY==maxY-1){
+        //                   if (lastHeading==DIRECTION_DOWN){currentHeading=DIRECTION_RIGHT;System.out.println("3r");}else{currentHeading=DIRECTION_UP;System.out.println("3u");}}}}
+        //       if(lastHeading==currentHeading){
+        //       for (int i =0;i <cy.length;i++){
+        //           if(snakeHeadX==0&&snakeHeadY==cy[i]||snakeHeadX==maxX-1&&snakeHeadY==cy[i]){if(i>=maxY/2){currentHeading = DIRECTION_DOWN;}else{currentHeading=DIRECTION_UP;}}
+        //           if(snakeHeadX==maxX-1&& snakeHeadY==0){if (lastHeading==DIRECTION_UP){currentHeading=DIRECTION_LEFT;System.out.println("4l");}else{currentHeading=DIRECTION_DOWN;System.out.println("2d");}}if(snakeHeadX==maxX-1&&snakeHeadY==maxY-1){if (lastHeading==DIRECTION_UP){currentHeading=DIRECTION_LEFT;}else {currentHeading=DIRECTION_UP;}}}}
 
+        if(snakeSquares[snakeHeadX+1][snakeHeadY] != 0){currentHeading=DIRECTION_UP;}
+        if(snakeSquares[snakeHeadX][snakeHeadY+1] != 0){currentHeading=DIRECTION_RIGHT;}
 
         if(snakeHeadX==xx){if (snakeHeadY>yy){currentHeading=DIRECTION_UP;}else{currentHeading=DIRECTION_DOWN;} }
         if(snakeHeadY==yy){if(snakeHeadX>xx){ currentHeading=DIRECTION_LEFT;}else {currentHeading=DIRECTION_RIGHT;}}
+
+
 
 
 
@@ -158,7 +157,7 @@ public class CSnake {
         //Or eat your tail? Don't move.
 
         if (hitWall == true || ateTail == true) {
-            SnakeGame.setGameStage(SnakeGame.GAME_OVER);
+            SnakeGame.cSnake.reset();
             return;
         }
 
@@ -202,9 +201,10 @@ public class CSnake {
 
         //Does this make snake hit the wall?
         if (snakeHeadX >= maxX || snakeHeadX < 0 || snakeHeadY >= maxY || snakeHeadY < 0 ) {
-            hitWall = true;
-            SnakeGame.setGameStage(SnakeGame.GAME_OVER);
-            return;
+            if(snakeHeadX>=maxX-1){snakeHeadX=0;}
+            if (snakeHeadX<0){snakeHeadX=maxX-1;}
+            if (snakeHeadY>=maxY-1){snakeHeadY=0;}
+            if (snakeHeadY<0){snakeHeadY=maxY-1;}
         }
 
         //Does this make the snake eat its tail?
@@ -212,7 +212,7 @@ public class CSnake {
         if (snakeSquares[snakeHeadX][snakeHeadY] != 0) {
 
             ateTail = true;
-            SnakeGame.setGameStage(SnakeGame.GAME_OVER);
+            SnakeGame.cSnake.reset();
             return;
         }
 
@@ -258,14 +258,7 @@ public class CSnake {
         return true;
     }
 
-    public boolean didEatKibble(Kibble kibble) {
-        //Is this kibble in the snake? It should be in the same square as the snake's head
-        if (kibble.getKibbleX() == snakeHeadX && kibble.getKibbleY() == snakeHeadY){
-            justAteMustGrowThisMuch += growthIncrement;
-            return true;
-        }
-        return false;
-    }
+
 
     public String toString(){
         String textsnake = "";
@@ -305,16 +298,16 @@ public class CSnake {
 
     }
 
-    public boolean isGameOver() {
-        if (hitWall == true || ateTail == true){
-            SnakeGame.setGameStage(SnakeGame.GAME_OVER);
-            return true;
 
+    public boolean didEatKibble(Kibble kibble) {
+
+        xx=kibble.getKibbleX();
+        yy=kibble.getKibbleY();
+
+        if (kibble.getKibbleX() == snakeHeadX && kibble.getKibbleY() == snakeHeadY){
+            justAteMustGrowThisMuch += growthIncrement;
+            return true;
         }
         return false;
     }
-
-
 }
-
-

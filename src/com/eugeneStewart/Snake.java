@@ -8,34 +8,34 @@ public class Snake {
 	final int DIRECTION_UP = 0;
 	final int DIRECTION_DOWN = 1;
 	final int DIRECTION_LEFT = 2;
-	final int DIRECTION_RIGHT = 3;  //These are completely arbitrary numbers. 
+	final int DIRECTION_RIGHT = 3;  //These are completely arbitrary numbers.
 
-	private boolean hitWall = false;
-	private boolean ateTail = false;
+	protected boolean hitWall = false;
+	protected boolean ateTail = false;
 
-	private int snakeSquares[][];  //represents all of the squares on the screen
+	public int snakeSquares[][];  //represents all of the squares on the screen
 	//NOT pixels!
 	//A 0 means there is no part of the snake in this square
 	//A non-zero number means part of the snake is in the square
 	//The head of the snake is 1, rest of segments are numbered in order
 
-	private int currentHeading;  //Direction snake is going in, ot direction user is telling snake to go
-	private int lastHeading;    //Last confirmed movement of snake. See moveSnake method
-	
-	private int snakeSize;   //size of snake - how many segments?
+	protected int currentHeading;  //Direction snake is going in, ot direction user is telling snake to go
+	protected int lastHeading;    //Last confirmed movement of snake. See moveSnake method
 
-	private int growthIncrement = 2; //how many squares the snake grows after it eats a kibble
+	protected int snakeSize;   //size of snake - how many segments?
 
-	private int justAteMustGrowThisMuch = 0;
+	protected int growthIncrement = 2; //how many squares the snake grows after it eats a kibble
 
-	private int maxX, maxY, squareSize;  
-	private int snakeHeadX, snakeHeadY; //store coordinates of head - first segment
+	public int justAteMustGrowThisMuch = 0;
+
+	protected int maxX, maxY, squareSize;
+	protected int snakeHeadX, snakeHeadY; //store coordinates of head - first segment
 
 	public Snake(int maxX, int maxY, int squareSize){
 		this.maxX = maxX;
 		this.maxY = maxY;
 		this.squareSize = squareSize;
-		//Create and fill snakeSquares with 0s 
+		//Create and fill snakeSquares with 0s
 		snakeSquares = new int[maxX][maxY];
 		fillSnakeSquaresWithZeros();
 		createStartSnake();
@@ -57,7 +57,7 @@ public class Snake {
 
 		currentHeading = DIRECTION_LEFT;
 		lastHeading = DIRECTION_LEFT;
-		
+
 		justAteMustGrowThisMuch = 0;
 	}
 
@@ -106,14 +106,23 @@ public class Snake {
 		currentHeading = DIRECTION_RIGHT;
 	}
 
-//	public void	eatKibble(){
+	public void	eatKibble(){
 //		//record how much snake needs to grow after eating food
-//		justAteMustGrowThisMuch += growthIncrement;
-//	}
+		justAteMustGrowThisMuch += growthIncrement;
+	}
 
 	protected void moveSnake(){
 		//Called every clock tick
-		
+		System.out.println("???????????h");
+		System.out.println( snakeSquares[0][0]+" "+snakeSquares[1][0]+" "+snakeSquares[2][0]+" "+snakeSquares[3][0]+" "+snakeSquares[4][0]+" "+snakeSquares[5][0]+" "+snakeSquares[6][0]);
+		System.out.println( snakeSquares[0][1]+" "+snakeSquares[1][1]+" "+snakeSquares[2][1]+" "+snakeSquares[3][1]+" "+snakeSquares[4][1]+" "+snakeSquares[5][1]+" "+snakeSquares[6][1]);
+		System.out.println( snakeSquares[0][2]+" "+snakeSquares[1][2]+" "+snakeSquares[2][2]+" "+snakeSquares[3][2]+" "+snakeSquares[4][2]+" "+snakeSquares[5][2]+" "+snakeSquares[6][2]);
+		System.out.println( snakeSquares[0][3]+" "+snakeSquares[1][3]+" "+snakeSquares[2][3]+" "+snakeSquares[3][3]+" "+snakeSquares[4][3]+" "+snakeSquares[5][3]+" "+snakeSquares[6][3]);
+		System.out.println( snakeSquares[0][4]+" "+snakeSquares[1][4]+" "+snakeSquares[2][4]+" "+snakeSquares[3][4]+" "+snakeSquares[4][4]+" "+snakeSquares[5][4]+" "+snakeSquares[6][4]);
+		System.out.println( snakeSquares[0][5]+" "+snakeSquares[1][5]+" "+snakeSquares[2][5]+" "+snakeSquares[3][5]+" "+snakeSquares[4][5]+" "+snakeSquares[5][5]+" "+snakeSquares[6][5]);
+		System.out.println( snakeSquares[0][6]+" "+snakeSquares[1][6]+" "+snakeSquares[2][6]+" "+snakeSquares[3][6]+" "+snakeSquares[4][6]+" "+snakeSquares[5][6]+" "+snakeSquares[6][6]);
+
+
 		//Must check that the direction snake is being sent in is not contrary to current heading
 		//So if current heading is down, and snake is being sent up, then should ignore.
 		//Without this code, if the snake is heading up, and the user presses left then down quickly, the snake will back into itself.
@@ -129,9 +138,9 @@ public class Snake {
 		if (currentHeading == DIRECTION_RIGHT && lastHeading == DIRECTION_LEFT) {
 			currentHeading = DIRECTION_LEFT; //keep going the same way
 		}
-		
-		//Did you hit the wall, snake? 
-		//Or eat your tail? Don't move. 
+
+		//Did you hit the wall, snake?
+		//Or eat your tail? Don't move.
 
 		if (hitWall == true || ateTail == true) {
 			SnakeGame.setGameStage(SnakeGame.GAME_OVER);
@@ -143,7 +152,7 @@ public class Snake {
 		//Put a 1 in new snake head square
 		//increase all other snake segments by 1
 		//set tail to 0 if snake did not just eat
-		//Otherwise leave tail as is until snake has grown the correct amount 
+		//Otherwise leave tail as is until snake has grown the correct amount
 
 		//Find the head of the snake - snakeHeadX and snakeHeadY
 
@@ -159,26 +168,26 @@ public class Snake {
 		}
 
 		//now identify where to add new snake head
-		if (currentHeading == DIRECTION_UP) {		
+		if (currentHeading == DIRECTION_UP) {
 			//Subtract 1 from Y coordinate so head is one square up
 			snakeHeadY-- ;
 		}
-		if (currentHeading == DIRECTION_DOWN) {		
+		if (currentHeading == DIRECTION_DOWN) {
 			//Add 1 to Y coordinate so head is 1 square down
 			snakeHeadY++ ;
 		}
-		if (currentHeading == DIRECTION_LEFT) {		
+		if (currentHeading == DIRECTION_LEFT) {
 			//Subtract 1 from X coordinate so head is 1 square to the left
 			snakeHeadX -- ;
 		}
-		if (currentHeading == DIRECTION_RIGHT) {		
+		if (currentHeading == DIRECTION_RIGHT) {
 			//Add 1 to X coordinate so head is 1 square to the right
 			snakeHeadX ++ ;
 		}
 
 		//Does this make snake hit the wall?
 		if (snakeHeadX >= maxX || snakeHeadX < 0 || snakeHeadY >= maxY || snakeHeadY < 0 ) {
-			hitWall = true;	
+
 			SnakeGame.setGameStage(SnakeGame.GAME_OVER);
 			return;
 		}
@@ -193,12 +202,12 @@ public class Snake {
 		}
 
 		//Otherwise, game is still on. Add new head
-		snakeSquares[snakeHeadX][snakeHeadY] = 1; 
+		snakeSquares[snakeHeadX][snakeHeadY] = 1;
 
 		//If snake did not just eat, then remove tail segment
 		//to keep snake the same length.
 		//find highest number, which should now be the same as snakeSize+1, and set to 0
-		
+
 		if (justAteMustGrowThisMuch == 0) {
 			for (int x = 0 ; x < maxX ; x++) {
 				for (int y = 0 ; y < maxY ; y++){
@@ -213,7 +222,7 @@ public class Snake {
 			justAteMustGrowThisMuch -- ;
 			snakeSize ++;
 		}
-		
+
 		lastHeading = currentHeading; //Update last confirmed heading
 
 	}
@@ -245,7 +254,7 @@ public class Snake {
 
 	public String toString(){
 		String textsnake = "";
-		//This looks the wrong way around. Actually need to do it this way or snake is drawn flipped 90 degrees. 
+		//This looks the wrong way around. Actually need to do it this way or snake is drawn flipped 90 degrees.
 		for (int y = 0 ; y < maxY ; y++) {
 			for (int x = 0 ; x < maxX ; x++){
 				textsnake = textsnake + snakeSquares[x][y];
@@ -257,7 +266,7 @@ public class Snake {
 
 	public boolean wonGame() {
 
-		//If all of the squares have snake segments in, the snake has eaten so much kibble 
+		//If all of the squares have snake segments in, the snake has eaten so much kibble
 		//that it has filled the screen. Win!
 		for (int x = 0 ; x < maxX ; x++) {
 			for (int y = 0 ; y < maxY ; y++){
@@ -269,7 +278,7 @@ public class Snake {
 		}
 		//But if we get here, the snake has filled the screen. win!
 		SnakeGame.setGameStage(SnakeGame.GAME_WON);
-		
+
 		return true;
 	}
 
@@ -285,7 +294,7 @@ public class Snake {
 		if (hitWall == true || ateTail == true){
 			SnakeGame.setGameStage(SnakeGame.GAME_OVER);
 			return true;
-			
+
 		}
 		return false;
 	}

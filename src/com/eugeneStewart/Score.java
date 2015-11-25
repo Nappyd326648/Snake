@@ -5,11 +5,11 @@ package com.eugeneStewart;
  */
 
 
-public class Score {
+class Score {
 
-	protected static int score;
-	protected static int highScore = 0;
-	protected static int increment;
+	private static int score;
+	private static int highScore = 0;
+	private static int increment;
 	
 	public Score(){
 		score = 0;
@@ -27,21 +27,25 @@ public class Score {
 		
 	}
 	
-	public int getScore(){
-		return score;
-	}
-	
+// --Commented out by Inspection START (11/17/2015 8:41 AM):
+//	public int getScore(){
+//		return score;
+//	}
+// --Commented out by Inspection STOP (11/17/2015 8:41 AM)
+
 	//Checks if current score is greater than the current high score. 
 	//updates high score and returns true if so.
 	
-	public boolean gameOver(){
-		
-		if (score > highScore) {
-			highScore = score;
-			return true;
-		}
-		return false;
-	}
+// --Commented out by Inspection START (11/17/2015 8:41 AM):
+//	public boolean gameOver(){
+//
+//		if (score > highScore) {
+//			highScore = score;
+//			return true;
+//		}
+//		return false;
+//	}
+// --Commented out by Inspection STOP (11/17/2015 8:41 AM)
 
 	//These methods are useful for displaying score at the end of the game
 	
@@ -62,6 +66,9 @@ public class Score {
 	public String getStringHighScore() {
 		return Integer.toString(highScore);
 	}
-	
+
+	public static void DecreaseScore() {
+		score = score - increment;
+	}
 }
 

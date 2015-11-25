@@ -32,7 +32,7 @@ public class SnakeGame {
 	private static int gameStage = BEFORE_GAME;  //use this to figure out what should be happening. 
 	//Other classes like Snake and DrawSnakeGamePanel will need to query this, and change its value
 
-	protected static long clockInterval = 500; //controls game speed
+	protected static long clockInterval =10; //controls game speed
 	//Every time the clock ticks, the snake moves
 	//This is the time between clock ticks, in milliseconds
 	//1000 milliseconds = 1 second.
@@ -72,7 +72,7 @@ public class SnakeGame {
 
 		snake = new Snake(xSquares, ySquares, squareSize);
 		cSnake= new CSnake(xSquares,ySquares,squareSize);
-		kibble = new Kibble(snake);
+		kibble = new Kibble(snake,cSnake);
 		score = new Score();
 
 		gameStage = BEFORE_GAME;

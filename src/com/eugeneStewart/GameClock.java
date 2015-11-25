@@ -9,6 +9,7 @@ public class GameClock extends TimerTask {
 	Score score;
 	CSnake cSnake;
 	DrawSnakeGamePanel gamePanel;
+
 		
 	public GameClock(Snake snake, CSnake cSnake, Kibble kibble, Score score, DrawSnakeGamePanel gamePanel){
 		this.snake = snake;
@@ -17,7 +18,7 @@ public class GameClock extends TimerTask {
 		this.score = score;
 		this.gamePanel = gamePanel;
 	}
-	
+
 	@Override
 	public void run() {
 		// This method will be called every clock tick
@@ -31,21 +32,24 @@ public class GameClock extends TimerTask {
 			}
 			case SnakeGame.DURING_GAME: {
 				//
-				snake.moveSnake();
-				if (snake.didEatKibble(kibble) == true) {		
+				//snake.moveSnake();
+				cSnake.moveSnake();
+				if (snake.didEatKibble(kibble) == true||cSnake.didEatKibble(kibble)==true ) {
 					//tell kibble to update
-					kibble.moveKibble(snake);
+					kibble.moveKibble(snake, cSnake);
 					Score.increaseScore();
+					if (cSnake.didEatKibble(kibble)==true ) {
+
+						Score.DecreaseScore();
+					}
 				}
-				cSnake.moveSnake(kibble);
-				if (cSnake.didEatKibble(kibble)==true){
-					kibble.moveKibble(snake);
-					Score.increaseScore();
-				}
+
+
 				break;
 			}
 			case SnakeGame.GAME_OVER: {
-				this.cancel();		//Stop the Timer	
+
+				this.cancel();		//Stop the Timer
 				break;	
 			}
 			case SnakeGame.GAME_WON: {
