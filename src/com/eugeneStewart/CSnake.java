@@ -33,10 +33,10 @@ public class CSnake {
 
     private int maxX, maxY, squareSize;
     private int snakeHeadX, snakeHeadY; //store coordinates of head - first segment
-    int sx = 64;
-    int sy = 48;
+
     int xx=0;
     int yy=0;
+
 
 
     public CSnake(int maxX, int maxY, int squareSize){
@@ -112,31 +112,29 @@ public class CSnake {
         //Without this code, if the snake is heading up, and the user presses left then down quickly, the snake will back into itself.
         //int xx =kibble.getKibbleX();
         //int yy = kibble.getKibbleY();
+        System.out.println(Score.score);
+
 
         int c[]=new int[maxX-1];
         int cy[]= new int[maxY-1];
         for(int i =0;i <c.length;i++ ){c[i]=i;}
         for(int i =0;i <cy.length;i++ ){cy[i]=i;}
 
-//        for(int i =0;i <c.length;i++ ){
-//            if (snakeHeadX==c[i]&& snakeHeadY==0||snakeHeadX==c[i]&& snakeHeadY==maxY-1){System.out.println(snakeHeadX==c[i]&& snakeHeadY==0||snakeHeadX==c[i]&& snakeHeadY==maxY-1);
-//                if (i>=maxX/2)System.out.println( i>maxX/2);{currentHeading=DIRECTION_RIGHT;System.out.println("1r");}if(i<maxX/2){currentHeading=DIRECTION_LEFT;System.out.println("1L");}
-//                if(snakeHeadX==0&& snakeHeadY==0){
-//                    if (lastHeading==DIRECTION_UP){currentHeading=DIRECTION_RIGHT;System.out.println("2r");}else{currentHeading=DIRECTION_DOWN;System.out.println("2d");}}
-        //               if(snakeHeadX==0&&snakeHeadY==maxY-1){
-        //                   if (lastHeading==DIRECTION_DOWN){currentHeading=DIRECTION_RIGHT;System.out.println("3r");}else{currentHeading=DIRECTION_UP;System.out.println("3u");}}}}
-        //       if(lastHeading==currentHeading){
-        //       for (int i =0;i <cy.length;i++){
-        //           if(snakeHeadX==0&&snakeHeadY==cy[i]||snakeHeadX==maxX-1&&snakeHeadY==cy[i]){if(i>=maxY/2){currentHeading = DIRECTION_DOWN;}else{currentHeading=DIRECTION_UP;}}
-        //           if(snakeHeadX==maxX-1&& snakeHeadY==0){if (lastHeading==DIRECTION_UP){currentHeading=DIRECTION_LEFT;System.out.println("4l");}else{currentHeading=DIRECTION_DOWN;System.out.println("2d");}}if(snakeHeadX==maxX-1&&snakeHeadY==maxY-1){if (lastHeading==DIRECTION_UP){currentHeading=DIRECTION_LEFT;}else {currentHeading=DIRECTION_UP;}}}}
+        for(int i =0;i <c.length;i++ ){
+            if (snakeHeadX==c[i]&& snakeHeadY==0||snakeHeadX==c[i]&& snakeHeadY==maxY-1){System.out.println(snakeHeadX==c[i]&& snakeHeadY==0||snakeHeadX==c[i]&& snakeHeadY==maxY-1);
+                if (i>=maxX/2)System.out.println( i>maxX/2);{currentHeading=DIRECTION_RIGHT;System.out.println("1r");}if(i<maxX/2){currentHeading=DIRECTION_LEFT;System.out.println("1L");}
+                if(snakeHeadX==0&& snakeHeadY==0){
+              if (lastHeading==DIRECTION_UP){currentHeading=DIRECTION_RIGHT;System.out.println("2r");}else{currentHeading=DIRECTION_DOWN;System.out.println("2d");}}
+                       if(snakeHeadX==0&&snakeHeadY==maxY-1){
+                           if (lastHeading==DIRECTION_DOWN){currentHeading=DIRECTION_RIGHT;System.out.println("3r");}else{currentHeading=DIRECTION_UP;System.out.println("3u");}}}}
+               if(lastHeading==currentHeading){
+               for (int i =0;i <cy.length;i++){
+                   if(snakeHeadX==0&&snakeHeadY==cy[i]||snakeHeadX==maxX-1&&snakeHeadY==cy[i]){if(i>=maxY/2){currentHeading = DIRECTION_DOWN;}else{currentHeading=DIRECTION_UP;}}
+                   if(snakeHeadX==maxX-1&& snakeHeadY==0){if (lastHeading==DIRECTION_UP){currentHeading=DIRECTION_LEFT;System.out.println("4l");}else{currentHeading=DIRECTION_DOWN;System.out.println("2d");}}if(snakeHeadX==maxX-1&&snakeHeadY==maxY-1){if (lastHeading==DIRECTION_UP){currentHeading=DIRECTION_LEFT;}else {currentHeading=DIRECTION_UP;}}}}
 
-        if(snakeSquares[snakeHeadX+1][snakeHeadY] != 0){currentHeading=DIRECTION_UP;}
-        if(snakeSquares[snakeHeadX][snakeHeadY+1] != 0){currentHeading=DIRECTION_RIGHT;}
 
         if(snakeHeadX==xx){if (snakeHeadY>yy){currentHeading=DIRECTION_UP;}else{currentHeading=DIRECTION_DOWN;} }
         if(snakeHeadY==yy){if(snakeHeadX>xx){ currentHeading=DIRECTION_LEFT;}else {currentHeading=DIRECTION_RIGHT;}}
-
-
 
 
 
@@ -212,6 +210,7 @@ public class CSnake {
         if (snakeSquares[snakeHeadX][snakeHeadY] != 0) {
 
             ateTail = true;
+            Score.score+=2;
             SnakeGame.cSnake.reset();
             return;
         }
@@ -239,6 +238,7 @@ public class CSnake {
         }
 
         lastHeading = currentHeading; //Update last confirmed heading
+        wonGame();
 
     }
 
@@ -276,18 +276,12 @@ public class CSnake {
 
         //If all of the squares have snake segments in, the snake has eaten so much kibble
         //that it has filled the screen. Win!
-        for (int x = 0 ; x < maxX ; x++) {
-            for (int y = 0 ; y < maxY ; y++){
-                if (snakeSquares[x][y] == 0) {
-                    //there is still empty space on the screen, so haven't won
-                    return false;
-                }
-            }
-        }
-        //But if we get here, the snake has filled the screen. win!
-        SnakeGame.setGameStage(SnakeGame.GAME_WON);
 
-        return true;
+        //But if we get here, the snake has filled the screen. win!
+        if (Score.score==-10){
+        SnakeGame.setGameStage(SnakeGame.CGAME_WON);
+
+        return true;}else { return false;}
     }
 
     public void reset() {

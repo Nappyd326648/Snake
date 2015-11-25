@@ -59,6 +59,10 @@ public class DrawSnakeGamePanel extends JPanel {
         	displayGameWon(g);
         	break;
         }
+			case 5: {
+				displayGameCWon(g);
+				break;
+			}
         }
         
         
@@ -68,9 +72,18 @@ public class DrawSnakeGamePanel extends JPanel {
 	private void displayGameWon(Graphics g) {
 		// TODO Replace this with something really special!
 		g.clearRect(100, 100, 350, 350);
+		g.setFont(new Font("Papyrus", Font.BOLD, 20));
 		g.drawString("YOU WON SNAKE!!!", 150, 150);
 		
 	}
+	private void displayGameCWon(Graphics g) {
+		// TODO Replace this with something really special!
+		g.clearRect(100, 100, 350, 350);
+		g.setFont(new Font("Papyrus", Font.BOLD, 20));
+		g.drawString("Jonny Walker WON SNAKE!!!", 150, 150);
+
+	}
+
 	private void displayGameOver(Graphics g) {
 
 		g.clearRect(100,100,350,350);
@@ -83,18 +96,20 @@ public class DrawSnakeGamePanel extends JPanel {
 		g.drawString("SCORE = " + textScore, 150, 250);
 		
 		g.drawString("HIGH SCORE = " + textHighScore, 150, 300);
-		g.drawString(newHighScore, 150, 400);
+		g.drawString(newHighScore, 125, 400);
 		
 		g.drawString("press a key to play again", 150, 350);
-		g.drawString("Press q to quit the game",150,400);		
+		g.drawString("Press q to quit the game", 150, 400);
     			
 	}
 
 	private void displayGame(Graphics g) {
-		displayGameGrid(g);
+		//displayGameGrid(g);
+		displayCSnake(g);
 		displaySnake(g);
 		displayKibble(g);
-		displayCSnake(g);
+
+
 	}
 
 	private void displayGameGrid(Graphics g) {
@@ -141,7 +156,9 @@ public class DrawSnakeGamePanel extends JPanel {
 		//Draw rest of snake in black
 		g.setColor(Color.BLACK);
 		for (Point p : coordinates) {
-			g.fillRect((int)p.getX(), (int)p.getY(), SnakeGame.squareSize, SnakeGame.squareSize);
+			g.fillRect((int) p.getX(), (int) p.getY(), SnakeGame.squareSize, SnakeGame.squareSize);
+			g.setFont(new Font ("Stencil",Font.PLAIN,20));
+			g.drawString(score.getStringScore(), 450, 40);
 		}
 
 	}
@@ -163,8 +180,13 @@ public class DrawSnakeGamePanel extends JPanel {
 	}
 
 	private void displayInstructions(Graphics g) {
-        g.drawString("Press any key to begin!",100,200);		
-        g.drawString("Press q to quit the game",100,300);		
+		g.setFont(new Font("Papyrus", Font.BOLD, 20));
+		g.drawString("The rules Are as follows", 200, 200);
+		g.drawString("It is a Tug Of War race to ten",200,230);
+		g.drawString("Do not hit the Wall ",200,255);
+		g.drawString("Do not hit You Tall ",200,280);
+		g.drawString("Press any key to begin!",200,330);
+        g.drawString("Press q to quit the game",200,360);
     	}
 	
     

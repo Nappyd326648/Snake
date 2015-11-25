@@ -32,16 +32,19 @@ public class GameClock extends TimerTask {
 			}
 			case SnakeGame.DURING_GAME: {
 				//
-				//snake.moveSnake();
+				snake.moveSnake();
 				cSnake.moveSnake();
 				if (snake.didEatKibble(kibble) == true||cSnake.didEatKibble(kibble)==true ) {
 					//tell kibble to update
-					kibble.moveKibble(snake, cSnake);
-					Score.increaseScore();
+
+
 					if (cSnake.didEatKibble(kibble)==true ) {
 
 						Score.DecreaseScore();
+						kibble.moveKibble(snake, cSnake);
 					}
+					else if (snake.didEatKibble(kibble) == true){Score.increaseScore();
+						kibble.moveKibble(snake, cSnake);}
 				}
 
 
