@@ -2,6 +2,7 @@ package com.eugeneStewart;
 
 import java.awt.*;
 import java.util.LinkedList;
+import java.util.Random;
 
 import javax.swing.JPanel;
 
@@ -71,9 +72,12 @@ public class DrawSnakeGamePanel extends JPanel {
 
 	private void displayGameWon(Graphics g) {
 		// TODO Replace this with something really special!
+
 		g.clearRect(100, 100, 350, 350);
+		g.setColor(Color.YELLOW	);
 		g.setFont(new Font("Papyrus", Font.BOLD, 20));
 		g.drawString("YOU WON SNAKE!!!", 150, 150);
+		displaySnake(g);
 		
 	}
 	private void displayGameCWon(Graphics g) {
@@ -81,6 +85,7 @@ public class DrawSnakeGamePanel extends JPanel {
 		g.clearRect(100, 100, 350, 350);
 		g.setFont(new Font("Papyrus", Font.BOLD, 20));
 		g.drawString("Jonny Walker WON SNAKE!!!", 150, 150);
+		displayCSnake(g);
 
 	}
 
@@ -98,7 +103,7 @@ public class DrawSnakeGamePanel extends JPanel {
 		g.drawString("HIGH SCORE = " + textHighScore, 150, 300);
 		g.drawString(newHighScore, 125, 400);
 		
-		g.drawString("press a key to play again", 150, 350);
+		g.drawString("press Any key to play again", 150, 350);
 		g.drawString("Press q to quit the game", 150, 400);
     			
 	}
@@ -140,7 +145,7 @@ public class DrawSnakeGamePanel extends JPanel {
 		int x = kibble.getKibbleX() * SnakeGame.squareSize;
 		int y = kibble.getKibbleY() * SnakeGame.squareSize;
 
-		g.fillRect(x+1, y+1, SnakeGame.squareSize-2, SnakeGame.squareSize-2);
+		g.fillOval(x + 1, y + 1, SnakeGame.squareSize - 2, SnakeGame.squareSize - 2);
 		
 	}
 
@@ -156,7 +161,7 @@ public class DrawSnakeGamePanel extends JPanel {
 		//Draw rest of snake in black
 		g.setColor(Color.BLACK);
 		for (Point p : coordinates) {
-			g.fillRect((int) p.getX(), (int) p.getY(), SnakeGame.squareSize, SnakeGame.squareSize);
+			g.fillOval((int) p.getX(), (int) p.getY(), SnakeGame.squareSize, SnakeGame.squareSize);
 			g.setFont(new Font ("Stencil",Font.PLAIN,20));
 			g.drawString(score.getStringScore(), 450, 40);
 		}
@@ -169,7 +174,7 @@ public class DrawSnakeGamePanel extends JPanel {
 		//Draw head in grey
 		g.setColor(Color.blue);
 		Point head = coordinates.pop();
-		g.fillRect((int)head.getX(), (int)head.getY(), SnakeGame.squareSize, SnakeGame.squareSize);
+		g.fillOval((int) head.getX(), (int) head.getY(), SnakeGame.squareSize, SnakeGame.squareSize);
 
 		//Draw rest of snake in black
 		g.setColor(Color.cyan);
@@ -182,11 +187,12 @@ public class DrawSnakeGamePanel extends JPanel {
 	private void displayInstructions(Graphics g) {
 		g.setFont(new Font("Papyrus", Font.BOLD, 20));
 		g.drawString("The rules Are as follows", 200, 200);
-		g.drawString("It is a Tug Of War race to ten",200,230);
+		g.drawString("It is a Tug Of War race to Fifteen",200,230);
 		g.drawString("Do not hit the Wall ",200,255);
 		g.drawString("Do not hit You Tall ",200,280);
-		g.drawString("Press any key to begin!",200,330);
-        g.drawString("Press q to quit the game",200,360);
+		g.drawString("When score is Greater than Three Warp walls are activated ",200,330);
+		g.drawString("Press any key to begin!",200,360);
+        g.drawString("Press q to quit the game",200,390);
     	}
 	
     

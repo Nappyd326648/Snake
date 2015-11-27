@@ -173,9 +173,13 @@ public class Snake {
 
 		//Does this make snake hit the wall?
 		if (snakeHeadX >= maxX || snakeHeadX < 0 || snakeHeadY >= maxY || snakeHeadY < 0) {
-
+			if (Score.score>=4){
+				if(snakeHeadX>=maxX-1){snakeHeadX=0;}
+				if (snakeHeadX<0){snakeHeadX=maxX-1;}
+				if (snakeHeadY>=maxY-1){snakeHeadY=0;}
+				if (snakeHeadY<0){snakeHeadY=maxY-1;}}else{
 			SnakeGame.setGameStage(SnakeGame.GAME_OVER);
-			return;
+			return;}
 		}
 
 		//Does this make the snake eat its tail?
@@ -214,14 +218,6 @@ public class Snake {
 
 	}
 
-	protected boolean didHitWall(){
-		return hitWall;
-
-	}
-
-	protected boolean didEatTail(){
-		return ateTail;
-	}
 
 	public boolean isSnakeSegment(int kibbleX, int kibbleY) {
 		if (snakeSquares[kibbleX][kibbleY] == 0) {
@@ -257,8 +253,8 @@ public class Snake {
 		//that it has filled the screen. Win!
 
 		//But if we get here, the snake has filled the screen. win!
-		if (Score.score==-10){
-			SnakeGame.setGameStage(SnakeGame.CGAME_WON);
+		if (Score.score==15){
+			SnakeGame.setGameStage(SnakeGame.GAME_WON);
 
 			return true;}else { return false;}
 	}

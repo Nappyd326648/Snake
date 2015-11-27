@@ -38,9 +38,12 @@ public class SnakeGame {
 	//Every time the clock ticks, the snake moves
 	//This is the time between clock ticks, in milliseconds
 	//1000 milliseconds = 1 second.
-	static final Timer timer = new Timer();
+
+	protected static Timer timer;
 	static JFrame snakeFrame;
 	static DrawSnakeGamePanel snakePanel;
+	protected static GameClock clockTick = new GameClock(snake,cSnake, kibble, score, snakePanel);
+
 	//Framework for this class adapted from the Java Swing Tutorial, FrameDemo and Custom Painting Demo. You should find them useful too.
 	//http://docs.oracle.com/javase/tutorial/displayCode.html?code=http://docs.oracle.com/javase/tutorial/uiswing/examples/components/FrameDemoProject/src/components/FrameDemo.java
 	//http://docs.oracle.com/javase/tutorial/uiswing/painting/step2.html
@@ -76,14 +79,16 @@ public class SnakeGame {
 		cSnake= new CSnake(xSquares,ySquares,squareSize);
 		kibble = new Kibble(snake,cSnake);
 		score = new Score();
-
+		timer = new Timer();
 		gameStage = BEFORE_GAME;
 	}
 
-	protected static void newGame() {
+	public static void newGame() {
 
+		timer=new Timer();
 		GameClock clockTick = new GameClock(snake,cSnake, kibble, score, snakePanel);
-		timer.scheduleAtFixedRate(clockTick, 0 , clockInterval);
+		timer.scheduleAtFixedRate(clockTick, 0, clockInterval);
+
 	}
 
 	public static void main(String[] args) {

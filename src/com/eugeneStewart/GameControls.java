@@ -2,6 +2,7 @@ package com.eugeneStewart;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.time.Clock;
 
 public class GameControls implements KeyListener{
 	
@@ -10,6 +11,7 @@ public class GameControls implements KeyListener{
 	GameControls(Snake s){
 		this.snake = s;
 	}
+
 
 	public void keyPressed(KeyEvent ev) {
 		//keyPressed events are for catching events like function keys, enter, arrow keys
@@ -34,9 +36,16 @@ public class GameControls implements KeyListener{
 		
 		if (SnakeGame.getGameStage() == SnakeGame.GAME_OVER){
 			snake.reset();
+			SnakeGame.cSnake.reset();
 			Score.resetScore();
+
+
+
 			
 			//Need to start the timer and start the game again
+
+			SnakeGame.timer.cancel();
+
 			SnakeGame.newGame();
 			SnakeGame.setGameStage(SnakeGame.DURING_GAME);
 			panel.repaint();

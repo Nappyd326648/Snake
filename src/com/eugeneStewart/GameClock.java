@@ -1,5 +1,6 @@
 package com.eugeneStewart;
 
+
 import java.util.TimerTask;
 
 public class GameClock extends TimerTask {
@@ -10,6 +11,7 @@ public class GameClock extends TimerTask {
 	CSnake cSnake;
 	DrawSnakeGamePanel gamePanel;
 
+
 		
 	public GameClock(Snake snake, CSnake cSnake, Kibble kibble, Score score, DrawSnakeGamePanel gamePanel){
 		this.snake = snake;
@@ -17,6 +19,7 @@ public class GameClock extends TimerTask {
 		this.kibble = kibble;
 		this.score = score;
 		this.gamePanel = gamePanel;
+
 	}
 
 	@Override
@@ -52,8 +55,8 @@ public class GameClock extends TimerTask {
 			}
 			case SnakeGame.GAME_OVER: {
 
-				this.cancel();		//Stop the Timer
-				break;	
+				this .cancel();		//Stop the Timer
+				break;
 			}
 			case SnakeGame.GAME_WON: {
 				this.cancel();   //stop timer
@@ -66,4 +69,6 @@ public class GameClock extends TimerTask {
 		gamePanel.repaint();		//In every circumstance, must update screen
 		
 	}
+
+
 }

@@ -110,9 +110,7 @@ public class CSnake {
         //Must check that the direction snake is being sent in is not contrary to current heading
         //So if current heading is down, and snake is being sent up, then should ignore.
         //Without this code, if the snake is heading up, and the user presses left then down quickly, the snake will back into itself.
-        //int xx =kibble.getKibbleX();
-        //int yy = kibble.getKibbleY();
-        System.out.println(Score.score);
+
 
 
         int c[]=new int[maxX-1];
@@ -121,16 +119,16 @@ public class CSnake {
         for(int i =0;i <cy.length;i++ ){cy[i]=i;}
 
         for(int i =0;i <c.length;i++ ){
-            if (snakeHeadX==c[i]&& snakeHeadY==0||snakeHeadX==c[i]&& snakeHeadY==maxY-1){System.out.println(snakeHeadX==c[i]&& snakeHeadY==0||snakeHeadX==c[i]&& snakeHeadY==maxY-1);
-                if (i>=maxX/2)System.out.println( i>maxX/2);{currentHeading=DIRECTION_RIGHT;System.out.println("1r");}if(i<maxX/2){currentHeading=DIRECTION_LEFT;System.out.println("1L");}
+            if (snakeHeadX==c[i]&& snakeHeadY==0||snakeHeadX==c[i]&& snakeHeadY==maxY-1){
+                if (i>=maxX/2){currentHeading=DIRECTION_RIGHT;}if(i<maxX/2){currentHeading=DIRECTION_LEFT;}
                 if(snakeHeadX==0&& snakeHeadY==0){
-              if (lastHeading==DIRECTION_UP){currentHeading=DIRECTION_RIGHT;System.out.println("2r");}else{currentHeading=DIRECTION_DOWN;System.out.println("2d");}}
+              if (lastHeading==DIRECTION_UP){currentHeading=DIRECTION_RIGHT;}else{currentHeading=DIRECTION_DOWN;}}
                        if(snakeHeadX==0&&snakeHeadY==maxY-1){
-                           if (lastHeading==DIRECTION_DOWN){currentHeading=DIRECTION_RIGHT;System.out.println("3r");}else{currentHeading=DIRECTION_UP;System.out.println("3u");}}}}
+                           if (lastHeading==DIRECTION_DOWN){currentHeading=DIRECTION_RIGHT;}else{currentHeading=DIRECTION_UP;}}}}
                if(lastHeading==currentHeading){
                for (int i =0;i <cy.length;i++){
                    if(snakeHeadX==0&&snakeHeadY==cy[i]||snakeHeadX==maxX-1&&snakeHeadY==cy[i]){if(i>=maxY/2){currentHeading = DIRECTION_DOWN;}else{currentHeading=DIRECTION_UP;}}
-                   if(snakeHeadX==maxX-1&& snakeHeadY==0){if (lastHeading==DIRECTION_UP){currentHeading=DIRECTION_LEFT;System.out.println("4l");}else{currentHeading=DIRECTION_DOWN;System.out.println("2d");}}if(snakeHeadX==maxX-1&&snakeHeadY==maxY-1){if (lastHeading==DIRECTION_UP){currentHeading=DIRECTION_LEFT;}else {currentHeading=DIRECTION_UP;}}}}
+                   if(snakeHeadX==maxX-1&& snakeHeadY==0){if (lastHeading==DIRECTION_UP){currentHeading=DIRECTION_LEFT;}else{currentHeading=DIRECTION_DOWN;}}if(snakeHeadX==maxX-1&&snakeHeadY==maxY-1){if (lastHeading==DIRECTION_UP){currentHeading=DIRECTION_LEFT;}else {currentHeading=DIRECTION_UP;}}}}
 
 
         if(snakeHeadX==xx){if (snakeHeadY>yy){currentHeading=DIRECTION_UP;}else{currentHeading=DIRECTION_DOWN;} }
@@ -242,14 +240,6 @@ public class CSnake {
 
     }
 
-    protected boolean didHitWall(){
-        return hitWall;
-
-    }
-
-    protected boolean didEatTail(){
-        return ateTail;
-    }
 
     public boolean isSnakeSegment(int kibbleX, int kibbleY) {
         if (snakeSquares[kibbleX][kibbleY] == 0) {
@@ -278,13 +268,13 @@ public class CSnake {
         //that it has filled the screen. Win!
 
         //But if we get here, the snake has filled the screen. win!
-        if (Score.score==-10){
+        if (Score.score==-15){
         SnakeGame.setGameStage(SnakeGame.CGAME_WON);
 
         return true;}else { return false;}
     }
 
-    public void reset() {
+    public void  reset() {
         hitWall = false;
         ateTail = false;
         fillSnakeSquaresWithZeros();
