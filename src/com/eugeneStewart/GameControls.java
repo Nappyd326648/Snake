@@ -43,7 +43,7 @@ public class GameControls implements KeyListener{
 
 			
 			//Need to start the timer and start the game again
-
+			//this closes the timer
 			SnakeGame.timer.cancel();
 
 			SnakeGame.newGame();

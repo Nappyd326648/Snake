@@ -34,19 +34,22 @@ public class GameClock extends TimerTask {
 				break;
 			}
 			case SnakeGame.DURING_GAME: {
-				//
+				//move snakes
 				snake.moveSnake();
 				cSnake.moveSnake();
+
 				if (snake.didEatKibble(kibble) == true||cSnake.didEatKibble(kibble)==true ) {
-					//tell kibble to update
-
-
+					//who ate the kibble
 					if (cSnake.didEatKibble(kibble)==true ) {
 
 						Score.DecreaseScore();
+						//tell kibble to update
+
 						kibble.moveKibble(snake, cSnake);
 					}
 					else if (snake.didEatKibble(kibble) == true){Score.increaseScore();
+						//tell kibble to update
+
 						kibble.moveKibble(snake, cSnake);}
 				}
 
@@ -65,7 +68,7 @@ public class GameClock extends TimerTask {
 			
 		
 		}
-				
+
 		gamePanel.repaint();		//In every circumstance, must update screen
 		
 	}

@@ -33,7 +33,7 @@ public class CSnake {
 
     private int maxX, maxY, squareSize;
     private int snakeHeadX, snakeHeadY; //store coordinates of head - first segment
-
+    //stores the kibble value
     int xx=0;
     int yy=0;
 
@@ -112,12 +112,12 @@ public class CSnake {
         //Without this code, if the snake is heading up, and the user presses left then down quickly, the snake will back into itself.
 
 
-
+        //getting the values of the map for strolling loop
         int c[]=new int[maxX-1];
         int cy[]= new int[maxY-1];
         for(int i =0;i <c.length;i++ ){c[i]=i;}
         for(int i =0;i <cy.length;i++ ){cy[i]=i;}
-
+        //strolling the map
         for(int i =0;i <c.length;i++ ){
             if (snakeHeadX==c[i]&& snakeHeadY==0||snakeHeadX==c[i]&& snakeHeadY==maxY-1){
                 if (i>=maxX/2){currentHeading=DIRECTION_RIGHT;}if(i<maxX/2){currentHeading=DIRECTION_LEFT;}
@@ -130,7 +130,7 @@ public class CSnake {
                    if(snakeHeadX==0&&snakeHeadY==cy[i]||snakeHeadX==maxX-1&&snakeHeadY==cy[i]){if(i>=maxY/2){currentHeading = DIRECTION_DOWN;}else{currentHeading=DIRECTION_UP;}}
                    if(snakeHeadX==maxX-1&& snakeHeadY==0){if (lastHeading==DIRECTION_UP){currentHeading=DIRECTION_LEFT;}else{currentHeading=DIRECTION_DOWN;}}if(snakeHeadX==maxX-1&&snakeHeadY==maxY-1){if (lastHeading==DIRECTION_UP){currentHeading=DIRECTION_LEFT;}else {currentHeading=DIRECTION_UP;}}}}
 
-
+        // uses the kibble x,y to find if he is above or below or left or right of the kibble
         if(snakeHeadX==xx){if (snakeHeadY>yy){currentHeading=DIRECTION_UP;}else{currentHeading=DIRECTION_DOWN;} }
         if(snakeHeadY==yy){if(snakeHeadX>xx){ currentHeading=DIRECTION_LEFT;}else {currentHeading=DIRECTION_RIGHT;}}
 
@@ -208,6 +208,7 @@ public class CSnake {
         if (snakeSquares[snakeHeadX][snakeHeadY] != 0) {
 
             ateTail = true;
+            //if he eats his own tail he loses 2 points and restarts
             Score.score+=2;
             SnakeGame.cSnake.reset();
             return;
@@ -236,7 +237,7 @@ public class CSnake {
         }
 
         lastHeading = currentHeading; //Update last confirmed heading
-        wonGame();
+        wonGame();// checks to see if jonnhy won
 
     }
 
@@ -267,7 +268,7 @@ public class CSnake {
         //If all of the squares have snake segments in, the snake has eaten so much kibble
         //that it has filled the screen. Win!
 
-        //But if we get here, the snake has filled the screen. win!
+        //But if we get here, the score reaches -15 the screen. win!
         if (Score.score==-15){
         SnakeGame.setGameStage(SnakeGame.CGAME_WON);
 
@@ -284,7 +285,7 @@ public class CSnake {
 
 
     public boolean didEatKibble(Kibble kibble) {
-
+        //to get the kibble location
         xx=kibble.getKibbleX();
         yy=kibble.getKibbleY();
 

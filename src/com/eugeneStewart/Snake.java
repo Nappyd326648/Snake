@@ -173,6 +173,7 @@ public class Snake {
 
 		//Does this make snake hit the wall?
 		if (snakeHeadX >= maxX || snakeHeadX < 0 || snakeHeadY >= maxY || snakeHeadY < 0) {
+			//turns on warp walls
 			if (Score.score>=4){
 				if(snakeHeadX>=maxX-1){snakeHeadX=0;}
 				if (snakeHeadX<0){snakeHeadX=maxX-1;}
@@ -252,7 +253,7 @@ public class Snake {
 		//If all of the squares have snake segments in, the snake has eaten so much kibble
 		//that it has filled the screen. Win!
 
-		//But if we get here, the snake has filled the screen. win!
+		//But if we get here, the score reaches 15 the screen. win!
 		if (Score.score==15){
 			SnakeGame.setGameStage(SnakeGame.GAME_WON);
 
